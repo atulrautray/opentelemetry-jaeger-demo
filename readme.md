@@ -20,9 +20,13 @@ Sources:
 
 # Distributed Tracing
 
-```Abstraction makes things easier, which makes things harder.```
+```
+Abstraction makes things easier, which makes things harder.
+```
 
-```A distributed system is one in which the failure of a computer you didn't even know existed can render your computer unusable. Leslie Lamport, 1987```
+```
+A distributed system is one in which the failure of a computer you didn't even know existed can render your computer unusable. Leslie Lamport, 1987
+```
 
 ## Why has distributed tracing become so popular? Logging and Metrics not enough?
 
