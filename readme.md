@@ -39,6 +39,9 @@ Sources:
 
 In 2016 OpenTracing was released as a CNCF  project focused only around distributed tracing. Because the libraries were lightweight and  simple, it could be used to fit any use case. While it made it easy to instrument data, it made it hard to instrument software that was shipped as binaries without a lot of manual engineering work. In 2018, a similar project called OpenCensus was open source out of Google, which supported both the capturing retracing permission and metrics. While it made it easier to get telemetry data  from software that was shipped as binaries like Kubernetes, and databases, it made it hard to  use the API to instrument custom implementations, not part of the default use case. Both projects were able to make observability easy for modern applications and expedite wide adoption of distributed tracing by the software industry. However, developers had to choose  between two options with pros and cons. It turns out that the approaches of  the two projects were complimentary rather than contradictory. In late 2019, the two projects  merged to form OpenTelemetry. This brought forward the idea  of having a single standard for observability instead of two competing standards.
 
+Sources:
+* [Ania Kubów's OpenTelemetry Course](https://www.youtube.com/watch?v=r8UvWSX3KA8)
+
 # What does a trace look like?
 
 ![alt text](https://www.sentinelone.com/wp-content/uploads/2020/08/26115528/span.png)
@@ -49,7 +52,12 @@ In 2016 OpenTracing was released as a CNCF  project focused only around distribu
 
 ![alt text](https://www.jaegertracing.io/img/spans-traces.png)
 
+* Span - a single operation within a trace. It represents work done by a single service which can be broken down further depending on the use case.
+* Trace - A collection of spans from a single user request forms a trace. A trace context is passed along when requests travel between services, which tracks a user request across services.
+
 # OpenTelemetry
+
+OpenTelemetry, also known as OTel for short, is a vendor-neutral open-source Observability framework for instrumenting, generating, collecting, and exporting telemetry data such as traces, metrics, logs. It is a collection of tools, APIs, and SDKs. Use it to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) to help analyze software performance and behavior.
 
 ## Instrumentation
 
@@ -59,9 +67,29 @@ In 2016 OpenTracing was released as a CNCF  project focused only around distribu
 
 # Jaeger
 
+Jaeger is an open-source distributed tracing tool meant to monitor and troubleshoot transactions in distributed systems. It was built by teams at Uber and then open-sourced in 2015. Jaeger is also a Cloud Native Computing Foundation graduate project.
+
+OpenTelemetry will only provide the structured tracing data, this data needs to be exported to be analyzed and visualized. This is where tools like Jaeger come into play.
+
+## Architecture
+
+![alt text](https://www.aspecto.io/wp-content/uploads/2022/02/All-Jaeger-Architecture--1024x612.jpg)
+
+* Jaeger Client: Jaeger clients are language specific implementations of the OpenTracing API. They can be used to instrument applications for distributed tracing either manually or with a variety of existing open source frameworks, such as Flask, Dropwizard, gRPC, and many more, that are already integrated with OpenTracing.
+* Jaeger Agent: Jaeger agent is a network daemon that listens for spans received from the Jaeger client over UDP. It gathers batches of them and then sends them together to the collector.
+* Jaeger Collector: The Jaeger collector is responsible for receiving traces from the Jaeger agent and performs validations and transformations. After that, it saves them to the selected storage backends.
+* Storage Backends: Jaeger supports various storage backends – which store the spans & traces for later retrieving them. Supported storage backends are In-Memory, Cassandra, Elasticsearch, and Kafka (only as a buffer to another storage like Cassandra or elasticsearch).
+* Jaeger Query: This is a service responsible for retrieving traces from the jaeger storage backend and making them accessible for the jaeger UI.
+* Jaeger UI: a React application that lets you visualize the traces and analyze them. Useful for debugging system issues.
+* Ingester: Ingester is relevant only if we use Kafka as a buffer between the collector and the storage backend. It is responsible for receiving data from Kafka and ingesting it into the storage backend. More info can be found in the official Jaeger Tracing docs.
+
+Sources:
+* [Jaeger Architecture](https://www.jaegertracing.io/docs/1.23/architecture/)
+* [Components of Jaeger Architecture](https://www.aspecto.io/blog/jaeger-tracing-the-ultimate-guide/#jaeger-tracing-architecture)
+
 # Demo
 * [work in progress]
 
 ## OpenTelemetry Community Demo
 
-* [The OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), a microservice-based distributed system intended to illustrate the implementation of OpenTelemetry in a near real-world environment. It a community driven project and is the most comprehensive OpenTelemetry showcase/demo available.
+* [The OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), is a microservice-based distributed system intended to illustrate the implementation of OpenTelemetry in a near real-world environment. It a community driven project and is the most comprehensive OpenTelemetry showcase/demo available.
