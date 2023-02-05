@@ -61,7 +61,11 @@ OpenTelemetry, also known as OTel for short, is a vendor-neutral open-source Obs
 
 ## Instrumentation
 
+* In order to make a system observable, it must be instrumented: That is, the code must emit traces, metrics, and logs.
+
 ## Collector
+
+* The OpenTelemetry Collector is a vendor-agnostic proxy that can receive, process, and export telemetry data. It supports receiving telemetry data in multiple formats (e.g., OTLP, Jaeger, Prometheus, as well as many commercial/proprietary tools) and sending data to one or more backends.
 
 ## Exporter
 
