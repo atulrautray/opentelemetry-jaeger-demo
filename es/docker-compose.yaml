@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    networks:
+      - elastic-kibana
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    restart: on-failure
+    environment:
+      - cluster.name=test-cluster1
+      - discovery.type=single-node
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    volumes:
+      - esdata:/var/lib/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+    - elasticsearch
+    networks:
+    - elastic-kibana
+
+volumes:
+  esdata:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/rautray/Desktop/projects/tracing/es-demo
+
+networks:
+  elastic-kibana:
+    driver: bridge
