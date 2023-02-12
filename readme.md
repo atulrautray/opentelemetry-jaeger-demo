@@ -92,7 +92,7 @@ Sources:
 * [Components of Jaeger Architecture](https://www.aspecto.io/blog/jaeger-tracing-the-ultimate-guide/#jaeger-tracing-architecture)
 
 # Demo
-* [work in progress]
+* View readme in demo directory for details.
 
 ## OpenTelemetry Community Demo
 
