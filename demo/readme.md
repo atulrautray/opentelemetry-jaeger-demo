@@ -25,7 +25,7 @@ docker compose down
 * Once the containers are running, the two Flask apps can be accessed on these endpoints. Sending requests (using curl or the browser) to these endpoints will generate spans which can be viewed in the jaeger UI.
   * `localhost:5000`, `localhost:5000/todo`, `localhost:5000/todo/<id_no>` (<\id_no> is the id of todo list item) for app1
   * `localhost:5001/user/profile` for app2
-  ```
+```
 curl localhost:5000
 curl localhost:5000/todo
 curl localhost:5000/30
